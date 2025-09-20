@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Vs_Example.Data;
+
 namespace Vs_Example
 {
     public class Program
@@ -8,7 +11,10 @@ namespace Vs_Example
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddDbContext<AppDbContext>(op =>
+            {
+                op.UseSqlServer(builder.Configuration.GetConnectionString("default"));
+            });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
